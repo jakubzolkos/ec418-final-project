@@ -89,8 +89,8 @@ if __name__ == '__main__':
 
     parser.add_argument('--log_dir')
     # Put custom arguments here
-    parser.add_argument('-n', '--num_epoch', type=int, default=30)
-    parser.add_argument('-w', '--num_workers', type=int, default=4)
+    parser.add_argument('-n', '--num_epoch', type=int, default=40)
+    parser.add_argument('-w', '--num_workers', type=int, default=6)
     parser.add_argument('-lr', '--learning_rate', type=float, default=1e-3)
     parser.add_argument('-c', '--continue_training', action='store_true')
     parser.add_argument('-t', '--transform', default='Compose([ColorJitter(0.2, 0.5, 0.5, 0.2), RandomHorizontalFlip(), ToTensor()])')

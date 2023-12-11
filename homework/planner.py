@@ -13,29 +13,31 @@ class Planner(nn.Module):
     def __init__(self):
         super().__init__()
         self._conv = nn.Sequential(
-            # First Convolutional Layer
             nn.Conv2d(3, 16, kernel_size=5, stride=2, padding=2),
+            nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
-            # Second Convolutional Layer
             nn.Conv2d(16, 32, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
-            # Third Convolutional Layer
             nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
-            # Fourth Convolutional Layer
             nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
-            # Final Convolution to get a single channel output
-            nn.Conv2d(128, 1, kernel_size=1, stride=1)
+            nn.Conv2d(128, 1, kernel_size=1, stride=1),
+            nn.BatchNorm2d(1),
+            nn.ReLU()
         )
+
 
     def forward(self, img):
         x = self._conv(img)
@@ -68,7 +70,7 @@ if __name__ == '__main__':
         planner = load_model().eval()
         pytux = PyTux()
         for t in args.track:
-            steps, how_far = pytux.rollout(t, control, planner=planner, max_frames=1000, verbose=args.verbose)
+            steps, how_far = pytux.rollout(t, control, planner=planner, max_frames=5000, verbose=args.verbose)
             print(steps, how_far)
         pytux.close()
 
